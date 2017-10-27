@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+ <meta name= "viewport" content ="initial-scale =1, maximum-scale =1" />
+<BODY BORDER=2 BGCOLOR="PINK">
+	<br>
+	<CENTER><h1><font face ="Arial" size="10">Student List</font></h1>
+		<input type="textbox" id="task" Name="Name" placeholder="Enter student name here " />
+		<center><button onclick="Add()" id="add" style="font-weight:bold; font-size:20px;margin-Left:5%; height:30px;width:55px;background-color:blue;font-family: 'Calibri'"> Save </button>
+
+       	<div class="container" align="center">  
+        <br><ul class="Note" id="notes"></ul>
+        </div>
+	</center>
+<script type="text/javascript">
+    function get_notes() {
+    var notes = new Array;
+    var notes_str = localStorage.getItem('note');
+        if (notes_str !== null) {
+            notes = JSON.parse(notes_str); 
+        }
+        return notes;
+   	 }
+    function add() {
+    var task = document.getElementById('task').value; 
+    var notes = get_notes();
+        notes.push(task);
+        localStorage.setItem('note', JSON.stringify(notes));
+        show();
+        function clear(){
+            document.getElementById("task").value = "";
+        }
+    clear();
+    return false;
+    }
+    function show() {
+    var notes = get_notes(); 
+    var html = '<ul>';
+        for(var i=0; i<notes.length; i++) {
+            html += '<li>' + notes[i];
+        };
+        html; 
+    document.getElementById('notes').innerHTML = html;
+	}     
+    document.getElementById('add').addEventListener('click', add);
+    show();
+</script>
+</body>
+</html>
